@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>作业5 - 省市区三级联动</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>作业5 - 省市区三级联动</h1>
+            <p>Ajax技术实现 · 区县GDP数据展示</p>
+        </header>
+
+        <div class="main-content">
+            <div class="selector-section">
+                <h2>选择地区</h2>
+                <div class="selector-group">
+                    <div class="selector-item">
+                        <label for="province">省份/直辖市</label>
+                        <select id="province">
+                            <option value="">请选择省份</option>
+                        </select>
+                        <div class="loading" id="provinceLoading">加载中...</div>
+                    </div>
+                    
+                    <div class="selector-item">
+                        <label for="city">地级市</label>
+                        <select id="city" disabled>
+                            <option value="">请先选择省份</option>
+                        </select>
+                        <div class="loading" id="cityLoading">加载中...</div>
+                    </div>
+                    
+                    <div class="selector-item">
+                        <label for="district">区/县</label>
+                        <select id="district" disabled>
+                            <option value="">请先选择城市</option>
+                        </select>
+                        <div class="loading" id="districtLoading">加载中...</div>
+                    </div>
+                </div>
+
+                <div class="selected-region" id="selectedRegion">
+                    <span class="label">当前选择：</span>
+                    <span class="value" id="regionDisplay">请选择省市区</span>
+                </div>
+            </div>
+
+            <div class="gdp-section" id="gdpSection">
+                <div class="gdp-placeholder" id="gdpPlaceholder">
+                    <div class="icon">📊</div>
+                    <p>选择区县后查看GDP数据</p>
+                    <p class="hint">目前已收录北京、上海、广东、浙江、江苏、四川等地区的主要区县GDP数据</p>
+                </div>
+
+                <div class="gdp-content" id="gdpContent" style="display: none;">
+                    <div class="gdp-header">
+                        <h2 id="districtName">区县名称</h2>
+                        <p class="location" id="districtLocation">省份 - 城市</p>
+                    </div>
+
+                    <div class="gdp-description" id="districtDescription">
+                        区县简介
+                    </div>
+
+                    <div class="gdp-chart-container">
+                        <h3>近年GDP发展趋势</h3>
+                        <canvas id="gdpChart"></canvas>
+                    </div>
+
+                    <div class="gdp-table-container">
+                        <h3>GDP详细数据</h3>
+                        <table class="gdp-table">
+                            <thead>
+                                <tr>
+                                    <th>年份</th>
+                                    <th>GDP (亿元)</th>
+                                    <th>同比增长 (%)</th>
+                                    <th>增长趋势</th>
+                                </tr>
+                            </thead>
+                            <tbody id="gdpTableBody">
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="gdp-summary" id="gdpSummary">
+                    </div>
+                </div>
+
+                <div class="gdp-error" id="gdpError" style="display: none;">
+                    <div class="icon">📭</div>
+                    <p id="errorMessage">暂无该区县的GDP数据</p>
+                    <p class="hint">该区县的GDP数据尚未收录</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="available-districts">
+            <h3>已收录GDP数据的区县</h3>
+            <div class="districts-list" id="districtsList">
+                加载中...
+            </div>
+        </div>
+
+        <footer>
+            <p>数据来源：各区县政府统计公报及公开数据</p>
+            <p>注：GDP数据仅供参考，具体以官方发布为准</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
